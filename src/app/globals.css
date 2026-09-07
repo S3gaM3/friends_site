@@ -1,0 +1,338 @@
+@import "tailwindcss";
+
+:root {
+  /* Clinical × human × minimal — sage palette */
+  --paper: #f7f5f0;
+  --paper-soft: #dde5df;
+  --sand: #dde5df;
+  --sand-deep: #c9b8a3;
+  --ink: #25312f;
+  --ink-soft: #5a6864;
+  --clay: #70877d;
+  --clay-deep: #5a7168;
+  --clay-soft: #c9b8a3;
+  --line: color-mix(in srgb, var(--ink) 12%, transparent);
+  --focus: #5a7168;
+  --radius: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-soft: 0 18px 48px -28px rgba(37, 49, 47, 0.28);
+  --shadow-card: 0 12px 36px -22px rgba(37, 49, 47, 0.22);
+  --shell-max: 72rem;
+}
+
+@theme inline {
+  --color-sand: var(--sand);
+  --color-sand-deep: var(--sand-deep);
+  --color-paper: var(--paper);
+  --color-paper-soft: var(--paper-soft);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-clay: var(--clay);
+  --color-clay-deep: var(--clay-deep);
+  --color-clay-soft: var(--clay-soft);
+  --color-line: var(--line);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-manrope);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--clay) 28%, white);
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.display {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.eyebrow {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clay-deep);
+}
+
+.shell {
+  margin-inline: auto;
+  max-width: var(--shell-max);
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 2rem;
+  }
+}
+
+.section-pad {
+  padding-block: clamp(3.25rem, 7vw, 5.75rem);
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, white 90%, var(--paper));
+  box-shadow: var(--shadow-card);
+}
+
+.card-lift {
+  transition:
+    transform 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+}
+
+.card-lift:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--clay) 30%, var(--line));
+  box-shadow: 0 16px 40px -24px rgba(37, 49, 47, 0.3);
+}
+
+.booking-panel {
+  border: 1px solid color-mix(in srgb, var(--clay) 28%, var(--line));
+  border-radius: var(--radius-xl);
+  background: white;
+  box-shadow: var(--shadow-soft);
+}
+
+.frosted {
+  border: 1px solid color-mix(in srgb, white 65%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, white 82%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 28px -18px rgba(37, 49, 47, 0.35);
+}
+
+.portrait-slot {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--sand);
+  box-shadow: var(--shadow-soft);
+}
+
+.portrait-glow {
+  position: absolute;
+  inset: 12% -8% -8% 18%;
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, white 55%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid color-mix(in srgb, white 50%, transparent);
+  z-index: 0;
+}
+
+.icon-dot {
+  display: inline-flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--clay) 16%, white);
+  color: var(--clay-deep);
+}
+
+.step-rail {
+  position: relative;
+}
+
+.step-rail::before {
+  content: "";
+  position: absolute;
+  top: 1.1rem;
+  bottom: 1.1rem;
+  left: 1.05rem;
+  width: 1px;
+  background: var(--line);
+}
+
+.sticky-cta {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 45;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  border-top: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@media (min-width: 768px) {
+  .sticky-cta {
+    display: none;
+  }
+}
+
+.reveal {
+  animation: rise 0.7s var(--ease-out) both;
+}
+
+.reveal-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+  animation-delay: 0.3s;
+}
+
+.reveal-delay-4 {
+  animation-delay: 0.4s;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.soft-float {
+  animation: soft-float 8s var(--ease-out) infinite;
+}
+
+.soft-breathe {
+  animation: soft-breathe 7s var(--ease-out) infinite;
+}
+
+@keyframes soft-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes soft-breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.55s var(--ease-out),
+    transform 0.55s var(--ease-out);
+}
+
+.scroll-reveal--fade {
+  transform: translateY(8px);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-enter {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.5s var(--ease-out),
+    transform 0.5s var(--ease-out);
+}
+
+.process-enter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-step {
+  transition: background-color 0.3s var(--ease-out);
+}
+
+.process-step:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.flow-arrow {
+  color: var(--clay);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal-delay-1,
+  .reveal-delay-2,
+  .reveal-delay-3,
+  .reveal-delay-4,
+  .soft-float,
+  .soft-breathe {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+
+  .scroll-reveal,
+  .process-enter {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .card-lift,
+  .card-lift:hover,
+  .process-step {
+    transition: none !important;
+    transform: none !important;
+  }
+}
