@@ -53,6 +53,7 @@ export type TopicsContent = {
   title: string;
   lead: string;
   items: TitleText[];
+  footer: string;
 };
 
 export type ApproachContent = {
@@ -61,7 +62,9 @@ export type ApproachContent = {
   paragraphs: string[];
   flow: string[];
   methodsTitle: string;
+  methodsLead: string;
   methods: string[];
+  note: string;
 };
 
 export type HoleContent = {
@@ -84,6 +87,8 @@ export type FirstMeetingContent = {
   title: string;
   lead: string;
   steps: TitleText[];
+  cta: CtaLink;
+  note: string;
 };
 
 export type ServicesContent = {

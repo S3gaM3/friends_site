@@ -18,7 +18,7 @@ export function Topics({ content }: { content: TopicsContent }) {
 
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {content.items.map((item, index) => (
-            <Reveal as="li" key={item.title} delay={index * 50}>
+            <Reveal as="li" key={item.title} delay={index * 45}>
               <article className="card card-lift h-full p-5 md:p-6">
                 <h3 className="text-base font-semibold text-ink">{item.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">{item.text}</p>
@@ -26,6 +26,12 @@ export function Topics({ content }: { content: TopicsContent }) {
             </Reveal>
           ))}
         </ul>
+
+        {content.footer ? (
+          <Reveal delay={120}>
+            <p className="mt-10 max-w-2xl text-base leading-relaxed text-ink-soft">{content.footer}</p>
+          </Reveal>
+        ) : null}
       </div>
     </section>
   );

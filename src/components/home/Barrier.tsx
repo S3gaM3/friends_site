@@ -8,7 +8,7 @@ export function Barrier({ content, site }: { content: BarrierContent; site: Site
   const remote = /^https?:\/\//i.test(portraitSrc);
 
   return (
-    <section className="section-pad bg-paper" aria-labelledby="barrier-title">
+    <section id="about-block" className="section-pad bg-paper" aria-labelledby="barrier-title">
       <div className="shell grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
         <Reveal>
           <div className="portrait-slot relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden lg:max-w-none">
@@ -24,20 +24,20 @@ export function Barrier({ content, site }: { content: BarrierContent; site: Site
         </Reveal>
 
         <Reveal delay={80}>
-          <p className="eyebrow">Безопасно начать</p>
+          <p className="eyebrow">О специалисте</p>
           <h2
             id="barrier-title"
             className="display mt-3 text-[clamp(1.7rem,3.4vw,2.5rem)] leading-tight text-ink"
           >
             {content.title}
           </h2>
-          <ul className="mt-6 space-y-3">
+          <div className="mt-6 space-y-4">
             {content.paragraphs.map((p) => (
-              <li key={p.slice(0, 24)} className="text-base leading-relaxed text-ink-soft md:text-lg">
+              <p key={p.slice(0, 28)} className="text-base leading-relaxed text-ink-soft md:text-lg">
                 {p}
-              </li>
+              </p>
             ))}
-          </ul>
+          </div>
         </Reveal>
       </div>
     </section>

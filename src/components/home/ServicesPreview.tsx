@@ -18,7 +18,7 @@ export function ServicesPreview({ services }: { services: ServicesContent }) {
             <p className="mt-3 text-base leading-relaxed text-ink-soft">{services.lead}</p>
           </div>
           <Button href="/booking#form" className="self-start">
-            {"Записаться на\u00A0бесплатные 15\u00A0минут"}
+            {"Записаться на\u00A0знакомство"}
           </Button>
         </Reveal>
 

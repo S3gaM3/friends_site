@@ -30,7 +30,7 @@ export function Hero({ site, hero }: { site: SiteProfile; hero: HeroContent }) {
             {hero.headline}
           </h1>
 
-          <p className="reveal reveal-delay-3 mt-5 max-w-xl text-base leading-relaxed text-ink-soft md:text-lg">
+          <p className="reveal reveal-delay-3 mt-5 max-w-xl whitespace-pre-line text-base leading-relaxed text-ink-soft md:text-lg">
             {hero.support}
           </p>
 

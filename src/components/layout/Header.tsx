@@ -36,7 +36,7 @@ export function Header({ site, nav }: { site: SiteProfile; nav: NavItem[] }) {
             );
           })}
           <Button href="/booking#form" className="!px-4 !py-2.5 text-sm">
-            {"Бесплатные 15\u00A0минут"}
+            {"Записаться на\u00A0знакомство"}
           </Button>
         </nav>
 
@@ -70,7 +70,7 @@ export function Header({ site, nav }: { site: SiteProfile; nav: NavItem[] }) {
               </Link>
             ))}
             <Button href="/booking#form" className="mt-2 w-full" onClick={() => setOpen(false)}>
-              {"Бесплатные 15\u00A0минут"}
+              {"Записаться на\u00A0знакомство"}
             </Button>
           </nav>
         </div>

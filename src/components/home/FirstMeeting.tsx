@@ -1,4 +1,5 @@
 import type { FirstMeetingContent } from "@/content/types";
+import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 
 export function FirstMeeting({ content }: { content: FirstMeetingContent }) {
@@ -6,14 +7,16 @@ export function FirstMeeting({ content }: { content: FirstMeetingContent }) {
     <section id="first-meeting" className="section-pad border-t border-line bg-sand/35" aria-labelledby="meeting-title">
       <div className="shell">
         <Reveal className="max-w-2xl">
-          <p className="eyebrow">Процесс</p>
+          <p className="eyebrow">Старт</p>
           <h2
             id="meeting-title"
             className="display mt-3 text-[clamp(1.7rem,3.4vw,2.5rem)] leading-tight text-ink"
           >
             {content.title}
           </h2>
-          <p className="mt-3 text-base leading-relaxed text-ink-soft">{content.lead}</p>
+          {content.lead ? (
+            <p className="mt-3 text-base leading-relaxed text-ink-soft">{content.lead}</p>
+          ) : null}
         </Reveal>
 
         <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -29,6 +32,11 @@ export function FirstMeeting({ content }: { content: FirstMeetingContent }) {
             </Reveal>
           ))}
         </ol>
+
+        <Reveal delay={160} className="mt-10 max-w-xl">
+          <Button href={content.cta.href}>{content.cta.label}</Button>
+          <p className="mt-4 text-sm leading-relaxed text-ink-soft">{content.note}</p>
+        </Reveal>
       </div>
     </section>
   );

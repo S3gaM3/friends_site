@@ -101,6 +101,7 @@ export function mergeWithDefaults(raw: unknown): SiteContent {
       steps: Array.isArray(rawFirst.steps)
         ? (rawFirst.steps as SiteContent["firstMeeting"]["steps"])
         : base.firstMeeting.steps,
+      cta: mergeCta(base.firstMeeting.cta, rawFirst.cta),
     },
     startChooser: {
       ...base.startChooser,
