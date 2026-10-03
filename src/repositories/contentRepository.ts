@@ -42,6 +42,8 @@ export function mergeWithDefaults(raw: unknown): SiteContent {
   const rawStart = isObject(raw.startChooser) ? raw.startChooser : {};
   const rawFaq = isObject(raw.faq) ? raw.faq : {};
   const rawBooking = isObject(raw.booking) ? raw.booking : {};
+  const rawRecommendations = isObject(raw.recommendations) ? raw.recommendations : {};
+  const rawSeo = isObject(raw.seo) ? raw.seo : {};
 
   return {
     ...base,
@@ -117,6 +119,20 @@ export function mergeWithDefaults(raw: unknown): SiteContent {
       items: Array.isArray(rawFaq.items)
         ? (rawFaq.items as SiteContent["faq"]["items"])
         : base.faq.items,
+    },
+    recommendations: {
+      ...base.recommendations,
+      ...rawRecommendations,
+      items: Array.isArray(rawRecommendations.items)
+        ? (rawRecommendations.items as SiteContent["recommendations"]["items"])
+        : base.recommendations.items,
+    },
+    seo: {
+      ...base.seo,
+      ...rawSeo,
+      keywords: Array.isArray(rawSeo.keywords)
+        ? (rawSeo.keywords as string[])
+        : base.seo.keywords,
     },
     trustStrip: {
       ...base.trustStrip,

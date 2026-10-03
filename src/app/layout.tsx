@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Manrope } from "next/font/google";
+import { buildRootMetadata } from "@/lib/seo";
 import { contentService } from "@/services/contentService";
 import "./globals.css";
 
@@ -15,21 +16,14 @@ const manrope = Manrope({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#5a7168",
+  colorScheme: "light",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const content = await contentService.getContent();
-  return {
-    title: {
-      default: `${content.site.name} — ${content.site.title}`,
-      template: `%s — ${content.site.name}`,
-    },
-    description: content.hero.support,
-    openGraph: {
-      title: `${content.site.name} — ${content.site.title}`,
-      description: content.hero.headline,
-      locale: "ru_RU",
-      type: "website",
-    },
-  };
+  return buildRootMetadata(content);
 }
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

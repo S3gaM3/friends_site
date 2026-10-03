@@ -1,6 +1,20 @@
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { authService } from "@/services/authService";
 import { contentService } from "@/services/contentService";
+
+function revalidatePublicPaths() {
+  revalidatePath("/", "layout");
+  revalidatePath("/");
+  revalidatePath("/about");
+  revalidatePath("/booking");
+  revalidatePath("/services");
+  revalidatePath("/recommendations");
+  revalidatePath("/manifest.webmanifest");
+  revalidatePath("/sitemap.xml");
+  revalidatePath("/opengraph-image");
+  revalidatePath("/twitter-image");
+}
 
 export async function GET() {
   if (!(await authService.isAuthenticated())) {
@@ -25,6 +39,7 @@ export async function PUT(request: Request) {
 
   try {
     const content = await contentService.saveContent(body);
+    revalidatePublicPaths();
     return NextResponse.json({ ok: true, content });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Не удалось сохранить.";

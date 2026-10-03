@@ -134,6 +134,36 @@ export function normalizeContentInput(input: unknown): SiteContent {
     throw new Error("Список отзывов должен быть массивом.");
   }
 
+  requireString(content.recommendations.title, "Заголовок «Кого советую»", MAX_SHORT);
+  requireOptionalString(content.recommendations.lead, "Лид «Кого советую»", MAX_LONG);
+  if (!Array.isArray(content.recommendations.items)) {
+    throw new Error("Список рекомендаций должен быть массивом.");
+  }
+  for (const [index, item] of content.recommendations.items.entries()) {
+    requireString(item.id, `recommendations[${index}].id`, MAX_SHORT);
+    requireString(item.name, `recommendations[${index}].name`, MAX_SHORT);
+    requireString(item.role, `recommendations[${index}].role`, MAX_SHORT);
+    requireString(item.description, `recommendations[${index}].description`, MAX_LONG);
+    requireString(item.ctaLabel, `recommendations[${index}].ctaLabel`, MAX_SHORT);
+    item.href = requireSafeHref(item.href, `recommendations[${index}].href`);
+    if (item.photoSrc) {
+      item.photoSrc = requireSafeHref(item.photoSrc, `recommendations[${index}].photoSrc`);
+    }
+    if (item.photoAlt) {
+      requireOptionalString(item.photoAlt, `recommendations[${index}].photoAlt`, MAX_MEDIUM);
+    }
+  }
+
+  requireString(content.seo.description, "SEO description", MAX_LONG);
+  requireOptionalString(content.seo.ogDescription, "SEO ogDescription", MAX_MEDIUM);
+  requireOptionalString(content.seo.category, "SEO category", MAX_SHORT);
+  if (!Array.isArray(content.seo.keywords)) {
+    throw new Error("SEO keywords должен быть массивом.");
+  }
+  content.seo.keywords = content.seo.keywords
+    .map((keyword) => requireString(keyword, "SEO keyword", MAX_SHORT))
+    .filter(Boolean);
+
   requireString(content.booking.title, "Заголовок записи", MAX_SHORT);
   requireString(content.booking.submitLabel, "Кнопка записи", MAX_SHORT);
   requireString(content.footer.note, "Примечание подвала", MAX_LONG);

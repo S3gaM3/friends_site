@@ -7,6 +7,12 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: content.services.title,
     description: content.services.lead,
+    alternates: { canonical: "/services" },
+    openGraph: {
+      title: `${content.services.title} — ${content.site.name}`,
+      description: content.services.lead,
+      url: "/services",
+    },
   };
 }
 

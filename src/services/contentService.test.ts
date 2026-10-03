@@ -18,6 +18,13 @@ describe("mergeWithDefaults", () => {
     assert.ok(merged.bookingCard.price);
     assert.ok(merged.trustStrip.items.length >= 1);
   });
+
+  it("fills recommendations and seo from defaults", () => {
+    const merged = mergeWithDefaults({ site: { name: "Тест" } });
+    assert.equal(merged.recommendations.title, defaultContent.recommendations.title);
+    assert.ok(Array.isArray(merged.recommendations.items));
+    assert.ok(merged.seo.keywords.length >= 1);
+  });
 });
 
 describe("normalizeContentInput", () => {
@@ -48,6 +55,52 @@ describe("normalizeContentInput", () => {
           site: { ...defaultContent.site, name: "   " },
         }),
       /обязательно/,
+    );
+  });
+
+  it("accepts recommendations specialists with safe href", () => {
+    const content = normalizeContentInput({
+      ...defaultContent,
+      recommendations: {
+        title: "Кого советую",
+        lead: "Знакомые специалисты",
+        items: [
+          {
+            id: "s1",
+            name: "Анна",
+            role: "Психолог",
+            description: "Работает с тревогой",
+            href: "https://example.com",
+            ctaLabel: "Сайт",
+          },
+        ],
+      },
+    });
+    assert.equal(content.recommendations.items.length, 1);
+    assert.equal(content.recommendations.items[0]?.href, "https://example.com");
+  });
+
+  it("rejects unsafe recommendation href", () => {
+    assert.throws(
+      () =>
+        normalizeContentInput({
+          ...defaultContent,
+          recommendations: {
+            title: "Кого советую",
+            lead: "",
+            items: [
+              {
+                id: "s1",
+                name: "Анна",
+                role: "Психолог",
+                description: "Текст",
+                href: "javascript:alert(1)",
+                ctaLabel: "Сайт",
+              },
+            ],
+          },
+        }),
+      /недопустимую ссылку/,
     );
   });
 });

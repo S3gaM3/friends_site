@@ -5,9 +5,16 @@ import { contentService } from "@/services/contentService";
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await contentService.getContent();
+  const description = `${content.about.lead} ${content.site.name} — ${content.site.credentials}.`;
   return {
     title: "Обо мне",
-    description: `${content.about.lead} ${content.site.name} — ${content.site.credentials}.`,
+    description,
+    alternates: { canonical: "/about" },
+    openGraph: {
+      title: `Обо мне — ${content.site.name}`,
+      description,
+      url: "/about",
+    },
   };
 }
 

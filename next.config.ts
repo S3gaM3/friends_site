@@ -23,7 +23,13 @@ const nextConfig: NextConfig = {
         images: { unoptimized: true },
       }
     : {
-        images: { unoptimized: false },
+        images: {
+          unoptimized: false,
+          remotePatterns: [
+            { protocol: "https", hostname: "**" },
+            { protocol: "http", hostname: "**" },
+          ],
+        },
         async headers() {
           return [{ source: "/:path*", headers: securityHeaders }];
         },
