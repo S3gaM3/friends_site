@@ -51,3 +51,29 @@ npm run build && npm start
 # статика для GitHub Pages
 npm run build:pages
 ```
+
+## Раздел «Кого советую»
+
+Реклама знакомых специалистов заказчика. Редактируется в админке → вкладка **Кого советую**.
+
+- Блок на главной (`/#recommendations`) — только если есть хотя бы один специалист
+- Отдельная страница: `/recommendations`
+- Поля: имя, роль, описание, ссылка, кнопка, опционально фото
+
+## SEO
+
+Настроены:
+
+- `metadataBase`, canonical, robots, Open Graph, Twitter Card
+- `sitemap.xml`, `robots.txt`, `manifest.webmanifest`
+- JSON-LD (Person + ProfessionalService + WebSite)
+- OG/Twitter image, favicon/apple-icon
+- вкладка SEO в админке (description, keywords, og description)
+
+Переменные в `.env.local`:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://dshan.ru
+YANDEX_VERIFICATION=...
+GOOGLE_SITE_VERIFICATION=...
+```

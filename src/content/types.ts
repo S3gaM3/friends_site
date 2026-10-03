@@ -142,6 +142,30 @@ export type FooterContent = {
   crisis: string;
 };
 
+export type RecommendedSpecialist = {
+  id: string;
+  name: string;
+  role: string;
+  description: string;
+  href: string;
+  ctaLabel: string;
+  photoSrc?: string;
+  photoAlt?: string;
+};
+
+export type RecommendationsContent = {
+  title: string;
+  lead: string;
+  items: RecommendedSpecialist[];
+};
+
+export type SeoContent = {
+  description: string;
+  keywords: string[];
+  ogDescription: string;
+  category: string;
+};
+
 /** Legacy fields kept for admin merge / secondary pages. */
 export type LegacyHomeBlocks = {
   trustStrip: { items: TitleText[] };
@@ -176,10 +200,12 @@ export type SiteContent = {
   services: ServicesContent;
   startChooser: StartChooserContent;
   faq: FaqContent;
+  recommendations: RecommendationsContent;
   finalCta: FinalCtaContent;
   about: AboutContent;
   booking: BookingContent;
   footer: FooterContent;
+  seo: SeoContent;
 } & LegacyHomeBlocks;
 
 export type StoredBooking = {

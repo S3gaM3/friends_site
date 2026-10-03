@@ -4,6 +4,7 @@ import { FaqAccordion } from "@/components/home/FaqAccordion";
 import { FinalCta } from "@/components/home/FinalCta";
 import { FirstMeeting } from "@/components/home/FirstMeeting";
 import { Hero } from "@/components/home/Hero";
+import { Recommendations } from "@/components/home/Recommendations";
 import { ServicesPreview } from "@/components/home/ServicesPreview";
 import { StickyCta } from "@/components/home/StickyCta";
 import { Topics } from "@/components/home/Topics";
@@ -20,6 +21,7 @@ export default async function HomePage() {
       <Barrier content={content.barrier} site={content.site} />
       <ServicesPreview services={content.services} />
       <FirstMeeting content={content.firstMeeting} />
+      <Recommendations content={content.recommendations} />
       <FaqAccordion content={content.faq} />
       <FinalCta finalCta={content.finalCta} site={content.site} />
       <StickyCta cta={content.firstMeeting.cta} />

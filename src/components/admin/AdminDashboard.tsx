@@ -14,11 +14,13 @@ type TabId =
   | "about"
   | "process"
   | "services"
+  | "recommendations"
   | "testimonials"
   | "bookingCard"
   | "finalCta"
   | "booking"
   | "footer"
+  | "seo"
   | "bookings";
 
 const TABS: { id: TabId; label: string }[] = [
@@ -30,11 +32,13 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "about", label: "Обо\u00A0мне" },
   { id: "process", label: "Процесс" },
   { id: "services", label: "Форматы" },
+  { id: "recommendations", label: "Кого советую" },
   { id: "testimonials", label: "Отзывы" },
   { id: "bookingCard", label: "Блок записи" },
   { id: "finalCta", label: "Призыв" },
   { id: "booking", label: "Форма" },
   { id: "footer", label: "Подвал" },
+  { id: "seo", label: "SEO" },
   { id: "bookings", label: "Заявки" },
 ];
 const fieldClass =
@@ -654,6 +658,176 @@ export function AdminDashboard({
               </>
             ) : null}
 
+            {tab === "recommendations" ? (
+              <>
+                <p className="text-sm text-ink-soft">
+                  Реклама знакомых специалистов: карточки появляются на\u00A0главной и\u00A0на\u00A0странице
+                  /recommendations. Пустой список скрывает раздел на\u00A0сайте.
+                </p>
+                <Field
+                  label="Заголовок"
+                  value={content.recommendations.title}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      recommendations: { ...content.recommendations, title: v },
+                    })
+                  }
+                />
+                <Field
+                  label="Лид"
+                  value={content.recommendations.lead}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      recommendations: { ...content.recommendations, lead: v },
+                    })
+                  }
+                  multiline
+                />
+                {content.recommendations.items.map((item, index) => (
+                  <div
+                    key={item.id}
+                    className="space-y-3 rounded-[var(--radius)] border border-line p-4"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="text-sm font-medium text-ink">Специалист {index + 1}</p>
+                      <button
+                        type="button"
+                        className="text-sm text-ink-soft underline-offset-2 hover:text-ink hover:underline"
+                        onClick={() => {
+                          const items = content.recommendations.items.filter((_, i) => i !== index);
+                          setContent({
+                            ...content,
+                            recommendations: { ...content.recommendations, items },
+                          });
+                        }}
+                      >
+                        Удалить
+                      </button>
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <Field
+                        label="Имя"
+                        value={item.name}
+                        onChange={(v) => {
+                          const items = [...content.recommendations.items];
+                          items[index] = { ...item, name: v };
+                          setContent({
+                            ...content,
+                            recommendations: { ...content.recommendations, items },
+                          });
+                        }}
+                      />
+                      <Field
+                        label="Роль / специализация"
+                        value={item.role}
+                        onChange={(v) => {
+                          const items = [...content.recommendations.items];
+                          items[index] = { ...item, role: v };
+                          setContent({
+                            ...content,
+                            recommendations: { ...content.recommendations, items },
+                          });
+                        }}
+                      />
+                    </div>
+                    <Field
+                      label="Почему рекомендуете"
+                      value={item.description}
+                      onChange={(v) => {
+                        const items = [...content.recommendations.items];
+                        items[index] = { ...item, description: v };
+                        setContent({
+                          ...content,
+                          recommendations: { ...content.recommendations, items },
+                        });
+                      }}
+                      multiline
+                      rows={3}
+                    />
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <Field
+                        label="Ссылка"
+                        value={item.href}
+                        onChange={(v) => {
+                          const items = [...content.recommendations.items];
+                          items[index] = { ...item, href: v };
+                          setContent({
+                            ...content,
+                            recommendations: { ...content.recommendations, items },
+                          });
+                        }}
+                      />
+                      <Field
+                        label="Текст кнопки"
+                        value={item.ctaLabel}
+                        onChange={(v) => {
+                          const items = [...content.recommendations.items];
+                          items[index] = { ...item, ctaLabel: v };
+                          setContent({
+                            ...content,
+                            recommendations: { ...content.recommendations, items },
+                          });
+                        }}
+                      />
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <Field
+                        label="Фото — путь или URL (опционально)"
+                        value={item.photoSrc ?? ""}
+                        onChange={(v) => {
+                          const items = [...content.recommendations.items];
+                          items[index] = { ...item, photoSrc: v };
+                          setContent({
+                            ...content,
+                            recommendations: { ...content.recommendations, items },
+                          });
+                        }}
+                      />
+                      <Field
+                        label="Alt фото"
+                        value={item.photoAlt ?? ""}
+                        onChange={(v) => {
+                          const items = [...content.recommendations.items];
+                          items[index] = { ...item, photoAlt: v };
+                          setContent({
+                            ...content,
+                            recommendations: { ...content.recommendations, items },
+                          });
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    const id = `specialist-${Date.now().toString(36)}`;
+                    setContent({
+                      ...content,
+                      recommendations: {
+                        ...content.recommendations,
+                        items: [
+                          ...content.recommendations.items,
+                          {
+                            id,
+                            name: "",
+                            role: "",
+                            description: "",
+                            href: "https://",
+                            ctaLabel: "Связаться",
+                          },
+                        ],
+                      },
+                    });
+                  }}
+                >
+                  Добавить специалиста
+                </Button>
+              </>
+            ) : null}
+
             {tab === "testimonials" ? (
               <>
                 <Field
@@ -930,6 +1104,52 @@ export function AdminDashboard({
                     setContent({ ...content, footer: { ...content.footer, crisis: v } })
                   }
                   multiline
+                />
+              </>
+            ) : null}
+
+            {tab === "seo" ? (
+              <>
+                <p className="text-sm text-ink-soft">
+                  Тексты для поисковиков и\u00A0превью ссылок. Канонический URL и\u00A0коды верификации
+                  задаются через переменные окружения (см.\u00A0.env.example).
+                </p>
+                <Field
+                  label="Meta description"
+                  value={content.seo.description}
+                  onChange={(v) => setContent({ ...content, seo: { ...content.seo, description: v } })}
+                  multiline
+                  rows={3}
+                />
+                <Field
+                  label="Open Graph description"
+                  value={content.seo.ogDescription}
+                  onChange={(v) =>
+                    setContent({ ...content, seo: { ...content.seo, ogDescription: v } })
+                  }
+                  multiline
+                  rows={2}
+                />
+                <Field
+                  label="Ключевые слова (через запятую)"
+                  value={content.seo.keywords.join(", ")}
+                  onChange={(v) =>
+                    setContent({
+                      ...content,
+                      seo: {
+                        ...content.seo,
+                        keywords: v
+                          .split(",")
+                          .map((keyword) => keyword.trim())
+                          .filter(Boolean),
+                      },
+                    })
+                  }
+                />
+                <Field
+                  label="Категория (schema/category)"
+                  value={content.seo.category}
+                  onChange={(v) => setContent({ ...content, seo: { ...content.seo, category: v } })}
                 />
               </>
             ) : null}
